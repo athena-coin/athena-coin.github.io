@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+	<script>
+	    var host = location.href;
+        host = host.split("?")[0];
+		temp = host.split("/index.html");
+        host = temp[0];
+		temp = host.substr(-1);
+		if(temp == '/') host = host.substring(0, host.length - 1);
+        var vars = {
+            app_url: host + '/',
+            app_apk_url: host + '/app/pandoras.apk',
+            app_apk_size: '16.1 MB',
+            app_apk_version: '2.2.1',
+            app_apk_updatetime: '2019-7-17',
+            app_ipa_url: host + '/app/pandoras.plist',
+            app_ipa_size: '34.5 MB',
+            app_ipa_version: '2.1.0',
+            app_ipa_updatetime: '2019-7-18',
+            kefuqq:'100009',
+            'app_name':'Pandoras'
+        };
+	</script>
+<script>document.writeln('<title>'+vars.app_name+'</title>')</script>
+<link rel="shortcut icon" mce_href="favicon.ico" href="favicon.ico" type="img/x-icon">
+<link href="./static/app/download.css?v=1.0" rel="stylesheet">
+<link href="./static/guide/swiper-3.3.1.min.css" rel="stylesheet">
+<link href="./static/guide/ab.css" rel="stylesheet">
+<style type="text/css">.wechat_tip,.wechat_tip>i{position:absolute;right:10px}.wechat_tip{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;background:#3ab2a7;color:#fff;font-size:14px;font-weight:500;width:135px;height:60px;border-radius:10px;top:15px}.wechat_tip>i{top:-10px;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:12px solid #3ab2a7}.mask img{max-width:100%;height:auto}
+.shadow {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 10000;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, .5)
+}.shadow img {
+	width: 70px;
+	height: 70px;
+	position: absolute;
+	top: 20px;
+	right: 30px
+}.shadow p {
+	font-size: 18px;
+	text-align: center;
+	color: #fff;
+	position: absolute;
+	top: 150px;
+	width: 100%
+}#actions{display: block !important;}
+
+</style>
+<script src="./static/guide/zepto.min.js" type="text/javascript"></script>
+<script src="./static/guide/swiper.jquery.min.js" type="text/javascript"></script>
+</head>
+<body>
+<!--span class="pattern left"><img src="./static/app/left.png"></span>
+<span class="pattern right"><img src="./static/app/right.png"></span-->
+<div class="out-container">
+	<div class="main">
+		<header>
+		<div class="table-container">
+			<div class="cell-container" id="view-tpl">
+
+			</div>
+		</div>
+		</header>
+	</div>
+</div>
+
+<script type="text/html" id="ios">
+    <div class="app-brief">
+        <div class="icon-container wrapper">
+            <i class="icon-icon_path bg-path"></i>
+            <span class="icon"><img src="./app/pandoras.png?v=1543291394" onerror="this.src='./static/app/iOS.png'"></span>
+            <span class="qrcode"><img src="https://sapi.k780.com/?app=qr.get&data={%app_url%}"></span>
+            <!--span class="qrcode"><img src="{%app_url%}/qr/?url={%app_url%}"></span!-->
+        </div>
+		<h1 class="name wrapper"><span class="icon-warp" style="margin-left:0px">&nbsp;</span></h1>
+        <div class="release-info">
+            <p>Version：{%app_ipa_version%}  Size：{%app_ipa_size%}</p>
+            <p>Date：{%app_ipa_updatetime%}</p>
+        </div>
+        <div id="actions" class="actions">
+            <button onclick="install_app('itms-services://?action=download-manifest&url={%app_ipa_url%}')">Download</button>
+        </div>
+
+    </div>
+</script>
+<script type="text/html" id="android">
+    <div class="app-brief">
+        <div class="icon-container wrapper">
+            <i class="icon-icon_path bg-path"></i>
+            <span class="icon"><img src="./app/pandoras.png?v=1543293189" onerror="this.src='./static/app/Android.png'"></span>
+            <span class="qrcode"><img src="https://sapi.k780.com/?app=qr.get&data={%app_url%}"></span>
+            <!--span class="qrcode"><img src="{%app_url%}/qr/?url={%app_url%}"></span!-->
+        </div>
+        <h1 class="name wrapper"><span class="icon-warp and" style="margin-left:0px">&nbsp;</span></h1>
+        <div class="release-info">
+            <p>Version：{%app_apk_version%}  Size：{%app_apk_size%}</p>
+            <p>Date：{%app_apk_updatetime%}</p>
+        </div>
+        <div id="actions" class="actions">
+            <button onclick="install_app('{%app_apk_url%}')">Download</button>
+        </div>
+    </div>
+</script>
+<div class="mask" style="display:none"></div>
+
+<div class="shadow" style="display: none;">
+    <img src="https://static.wuyan.cn/iveryone/dist/arrow.png?226cf7fad4b560fc857accc13e077960">
+    <p>请使用浏览器打开</p>
+</div>
+</body>
+
+<script type="text/javascript">
+    if(/iphone|ipad/i.test(navigator.userAgent)){
+        $('#view-tpl').html(tpl($('#ios').html()));
+    }else{
+        $('#view-tpl').html(tpl($('#android').html()));
+    }
+    $('#view-other').html(tpl($('#other').html()));
+
+    function tpl(string) {
+        return string.replace(/\{%([^\%]+)\%}/g, function (s, ss) {
+            return vars[ss];
+        });
+    }
+    function mobile_provision() {
+        $('#actions').html('<p>Installing，Please press the Home to view on the desktop</p><button onclick="location.href=\'./app/app.mobileprovision\'">Trust</button>');
+    }
+    function install_app(_link) {
+        if (/MicroMessenger/.test(navigator.userAgent)){
+            $('.shadow').show();
+            return ;
+        }
+        if (!/android/.test(navigator.userAgent.toLowerCase())) {
+            $('#actions').html('<button style="min-width:43px;width:43px;padding:12px 0;border-top-color:transparent;border-left-color:transparent" class="loading">&nbsp;</button>');
+            setTimeout("mobile_provision()", 6000);
+        }
+        location.href = _link;
+    }
+    function install_ing(_link) {
+        location.href = _link;
+        $(".text-bar")[0].innerHTML = "Installing";
+        $(".change").show();
+        $(".text-bar").attr("disabled", "true");
+        $(".top-bar").css("width", "0.1%");
+        timer = setTimeout(function () {
+            $(".top-bar").css("width", "0.1%").animate({
+                width: "20%"
+            }, 1e3, function () {
+                $("#mq1").hide();
+                $(".device").show();
+                var mySwiper = new Swiper(".swiper-container1", {
+                    nextButton: ".next_btn",
+                    autoplay: 3e3,
+                    autoplayStopOnLast: true
+                });
+                $(".top-bar").css("width", "20%").animate({
+                    width: "100%"
+                }, 15e3, function () {
+                    $(".text-bar")[0].innerHTML = "Trust";
+                    $(".text-bar").removeAttr("disabled");
+                    $(".text-bar").attr("href", "./app/app.mobileprovision");
+                });
+            });
+        }, 1e3);
+    }
+</script>
+</html>
